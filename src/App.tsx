@@ -1,33 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { Sun } from './components/Icons/Sun'
+import { Moon } from './components/Icons/Moon'
+import { Button, Card, ConfigProvider, theme } from 'antd'
+
+const { defaultAlgorithm, darkAlgorithm } = theme
+
+const ColorModeContext = createContext({ toggleColorMode: () => {} })
+
+function MyApp({ mode }: { mode: string }) {
+  const colorMode = useContext(ColorModeContext)
+  return (
+    <Card
+      style={{
+        width: '100%',
+        height: '100%',
+        borderRadius: '0',
+        border: 'none'
+      }}
+    >
+      <div className="App">
+        <Button onClick={colorMode.toggleColorMode}>
+          {mode === 'light' ? <Sun /> : <Moon />}
+        </Button>
+      </div>
+    </Card>
+  )
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const storage = typeof window !== 'undefined' ? localStorage.theme : 'light'
+  const [storageTheme, setStorageTheme] = useState(storage)
+  const [mode, setMode] = useState<'light' | 'dark'>(storage)
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+      }
+    }),
+    []
+  )
+
+  const THEME = useMemo(
+    () => ({
+      algorithm: mode === 'light' ? darkAlgorithm : defaultAlgorithm
+    }),
+    [mode]
+  )
+
+  useEffect(() => {
+    localStorage.setItem('theme', mode)
+    setStorageTheme(mode)
+  }, [THEME, storageTheme, mode])
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <ColorModeContext.Provider value={colorMode}>
+      <ConfigProvider theme={THEME}>
+        <MyApp mode={mode} />
+      </ConfigProvider>
+    </ColorModeContext.Provider>
   )
 }
 
