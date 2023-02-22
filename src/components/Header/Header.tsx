@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks'
 import { changeTheme } from '../../store/slices/themeSlice'
-import { Moon } from '../Icons/Moon'
-import { Sun } from '../Icons/Sun'
+import { MoonIcon } from '../Icons/Moon'
+import { SunIcon } from '../Icons/Sun'
 import { Navbar } from '../Navbar'
 import { Button, Col, Row } from 'antd'
 
@@ -24,7 +24,7 @@ export const Header = () => {
       </Col>
       <Col span={2} xs={5}>
         <Button onClick={toggleColorMode}>
-          {theme === 'dark' ? <Sun /> : <Moon />}
+          {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
         </Button>
       </Col>
     </Row>
