@@ -19,13 +19,14 @@ export const App = () => {
       }}
     >
       <Card
-        bodyStyle={{padding: '0', borderRadius: '0'}}
+        bodyStyle={{ padding: '0', borderRadius: '0' }}
         style={{
           fontSize: '16px',
           width: '100%',
           height: '100%',
           borderRadius: '0',
-          border: 'none'
+          border: 'none',
+          transition: 'background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)'
         }}
       >
         <Layout />

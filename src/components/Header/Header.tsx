@@ -2,7 +2,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks'
 import { changeTheme } from '../../store/slices/themeSlice'
 import { Moon } from '../Icons/Moon'
 import { Sun } from '../Icons/Sun'
-import { Button } from 'antd'
+import { Navbar } from '../Navbar'
+import { Button, Col, Row } from 'antd'
 
 export const Header = () => {
   const theme = useAppSelector((state) => state.theme)
@@ -14,10 +15,18 @@ export const Header = () => {
   }
 
   return (
-    <div>
-      <Button onClick={toggleColorMode}>
-        {theme === 'dark' ? <Sun /> : <Moon />}
-      </Button>
-    </div>
+    <Row gutter={[16, 16]} align="middle">
+      <Col span={2} xs={4}>
+        Logo
+      </Col>
+      <Col span={20} xs={15}>
+        <Navbar />
+      </Col>
+      <Col span={2} xs={5}>
+        <Button onClick={toggleColorMode}>
+          {theme === 'dark' ? <Sun /> : <Moon />}
+        </Button>
+      </Col>
+    </Row>
   )
 }
