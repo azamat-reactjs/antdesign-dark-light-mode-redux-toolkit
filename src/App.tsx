@@ -21,6 +21,7 @@ export const App = () => {
       <Card
         bodyStyle={{padding: '0', borderRadius: '0'}}
         style={{
+          fontSize: '16px',
           width: '100%',
           height: '100%',
           borderRadius: '0',
