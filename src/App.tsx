@@ -15,13 +15,18 @@ export const App = () => {
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme === 'dark' ? darkAlgorithm : defaultAlgorithm
+        algorithm: theme === 'dark' ? darkAlgorithm : defaultAlgorithm,
+        components: {
+          Card: {
+            fontFamily: '"Lora", serif',
+            fontSize: 16
+          }
+        }
       }}
     >
       <Card
         bodyStyle={{ padding: '0', borderRadius: '0' }}
         style={{
-          fontSize: '16px',
           width: '100%',
           height: '100%',
           borderRadius: '0',

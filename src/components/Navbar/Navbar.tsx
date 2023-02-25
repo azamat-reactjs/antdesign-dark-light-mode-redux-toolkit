@@ -14,6 +14,7 @@ const items = [
 
 export const Navbar = () => {
   const theme = useAppSelector((state) => state.theme)
+
   return (
     <Menu
       style={{
